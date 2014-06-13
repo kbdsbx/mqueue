@@ -1,6 +1,6 @@
 /**
  * @charset: UTF-8
- * jquery.mqueue jQuery消息显示列表
+ * jquery.mqueue jQuery消息列表
  * version: v1.0.1
  * 
  * copyright © 2014 kbdsbx
@@ -8,6 +8,7 @@
  * 
  * url: none;
  */
+
 ;(function($){
 	$.fn.mqueue = function(){
 		var mq = new $.mQueue();
