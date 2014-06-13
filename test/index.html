@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Test about jquery.dc.js</title>
+<link rel="stylesheet" type="text/css" href="../css/mqueue.css" />
+<link rel="stylesheet" type="text/css" href="../css/font-awesome.css" />
+<style>
+    .btns button {
+    display: block;
+    }
+</style>
+</head>
+<body>
+<div class="btns">
+	<button onclick="show()">Show</button>
+	<button onclick="show_bottom()">Show on the bottom</button>
+	<button onclick="clean()">Clean All</button>
+	<button onclick="removeE()">Use jQuery.mqueue's remove function to remove #5</button>
+	<button onclick="removeE2()">Use jQuery's remove function to remove #6</button>
+</div>
+<div class="test2">
+</div>
+</body>
+<script src="http://libs.baidu.com/jquery/1.10.2/jquery.js"></script>
+<script src="../js/jquery.dc.js"></script>
+<script>
+$(function() {
+	$('body').dc({ajax_url_skip : false}).ajax_bind();
+});
+
+function show() {
+	$.mqueue.add({type: 'warning', img: '../img/test.jpg', title: 'This is image\'s warning alert.', text: 'I think it is so beautiful. not picture, is my alert.'});
+}
+function show_bottom () {
+	$.mqueue.add({type: 'success', position: 'bottom', img: '../img/test.jpg', title: 'This is image\'s warning alert.', text: 'I think it is so beautiful. not picture, is my alert.'});
+}
+function clean() {
+	$.mqueue.clean();
+}
+function removeE() {
+    $.mqueue.remove($("[data-mqueue-id='5']"));
+}
+function removeE2() {
+    $("[data-mqueue-id='6']").remove();
+}
+$.mqueue.add();
+$.mqueue.add({text: 'This only including text.'});
+$.mqueue.add({type: 'white', text: 'The white'});
+$.mqueue.add({type: 'This is xx', text: 'The white'});
+$.mqueue.add({type: 'success', penetrate: true, title: 'This only including title.'});
+$.mqueue.add({type: 'warning', img: '../img/test.jpg', title: 'This is image\'s warning alert.', text: 'I think it is so beautiful. not picture, is my alert.'});
+$.mqueue.add({text: 'This only including text and it is vary long, I never want the user make message like this.'});
+$.mqueue.add({type: 'danger', icon: 'icon-home', title: 'This is danger alert.', text: 'Tell me why do you think this color is danger?'});
+$.mqueue.add({type: 'success', title: 'this is success alert and it with url.', url: 'http://www.baidu.com'});
+$.mqueue.add({type: 'warning', icon: 'random', title: 'This is warning alert.', text: 'I don\'t know about this is color\'s information.'});
+$.mqueue.add({type: 'info', icon: 'icon-info-sign', text: 'Information in the text only.'});
+$.mqueue.add({type: 'info', icon: 'icon-info-sign', text: 'Information in the text only. I hope the long text can be beautifly rank. but it is too difficult.'});
+</script>
+</html>
