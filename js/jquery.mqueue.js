@@ -15,7 +15,9 @@
 		mq._add();
 	}
 	
-	$.mqueue = {};
+	$.mqueue = function( options ) {
+		mQueue.add( options );
+	}
 	
 	$.mqueue.add = function( options ) {
 		mQueue.add( options );
@@ -209,7 +211,11 @@
 			return finded;
 		},
 		add : function( options ) {
-			options = this._extend( options );
+			if ( typeof options === 'string' ) {
+				options = this._extend( { title: options } );
+			} else {
+				options = this._extend( options );
+			}
 			this._add( options );
 		},
 		remove : function( element ) {
