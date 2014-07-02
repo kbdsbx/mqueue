@@ -21,7 +21,28 @@
 	bottom : 20px;
 }
 
+.mqueue-panel .mqueue-item.top,
+.mqueue-panel .mqueue-item.bottom,
 .mqueue-panel .mqueue-item {
+	position: relative;
+}
+.mqueue-panel .mqueue-item.clean-all {
+    cursor: pointer;
+}
+.mqueue-panel .mqueue-item.top,
+.mqueue-panel .mqueue-item.bottom {
+    text-align: center;
+}
+.mqueue-panel .mqueue-item.top .mqueue-title,
+.mqueue-panel .mqueue-item.bottom .mqueue-title {
+    margin: 0 auto;
+    padding: 0;
+}
+.mqueue-panel .mqueue-item.top {
+    top: 0;
+}
+.mqueue-panel .mqueue-item.bottom {
+    bottom: 0;
 }
 
 .mqueue-panel .mqueue-item .mqueue-close {
@@ -61,7 +82,7 @@
     width: 300px;
     padding: 8px;
     margin-bottom: 10px;
-    border-radius: 10px;
+    border-radius: 4px;
     border-width: 2px;
     border-style: solid;
     overflow: hidden;

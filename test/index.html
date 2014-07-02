@@ -25,10 +25,6 @@
 <script src="http://libs.baidu.com/jquery/1.10.2/jquery.js"></script>
 <script src="../js/jquery.mqueue.js"></script>
 <script>
-$(function() {
-	$('body').dc({ajax_url_skip : false}).ajax_bind();
-});
-
 function show() {
 	$.mqueue.add({type: 'warning', img: '../img/test.jpg', title: 'This is image\'s warning alert.', text: 'I think it is so beautiful. not picture, is my alert.'});
 }

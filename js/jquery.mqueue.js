@@ -38,6 +38,10 @@
 			'warning',
 			'success'
 		],
+		positions : [
+		    'top',
+		    'bottom'
+		],
 		defaults : {
 			type		:	'default',	// info success warning danger
 			icon		:	false,		// font-awesome
@@ -52,11 +56,46 @@
 		},
 		out_handle : {},
 		_create_panel : function( options ) {
+			var _this = this;
 			var panel = $("<div></div>").addClass("mqueue-panel");
+
+			if (!_this._find(_this.positions, options.position)) {
+				options.position = 'top';
+			}
 			if ( options.position === 'bottom' ) {
 				panel.addClass("mqueue-panel-bottom");
 			}
 			$("body").append( panel );
+		},
+		_add_close_all : function( options ) {
+			var text, _this = this;
+			var panel = $("body > .mqueue-panel");
+			if ( panel.find( ".clean-all" ).length != 0 ) {
+				return this;
+			}
+			// 若类型不存在则使用default类型
+			if (!_this._find(_this.types, options.type)) {
+				options.type = 'default';
+			}
+			item = $("<div></div>")
+				.addClass("mqueue-item")
+				.addClass(options.position)
+				.addClass("clean-all")
+				.on("click", function() {
+					_this._clean_panel( options );
+				});
+			msg = $("<div></div>")
+				.addClass("mqueue-" + options.type);
+			title = $("<span></span>")
+				.addClass("mqueue-title")
+				.html("[ clean all ]");
+			
+			item.prepend(msg.prepend(title));
+			if (options.position == 'top') {
+				panel.prepend(item);
+			} else if (options.position == "bottom") {
+				panel.append(item);
+			}
 		},
 		_clean_panel : function( options ) {
 			var panel = $("body > .mqueue-panel");
@@ -78,7 +117,16 @@
 			panel.stop(true, false);
 			panel.css( { opacity : 1 } );
 			
-			id = parseInt($("body > .mqueue-panel .mqueue-item:last-child").attr("data-mqueue-id"), 10) || 0;
+			// 添加清除全部按钮
+			_this._add_close_all( options );
+			if ( panel.find(".mqueue-item").length > 1 ) {
+			}
+			
+			var id = 0;
+			$("body > .mqueue-panel .mqueue-item").each(function(i, item) {
+				var t = parseInt($(item).attr("data-mqueue-id"), 10);
+				id = t > id ? t : id;
+			});
 			id += 1;
 			item = $("<div></div>")
 				.addClass("mqueue-item")
@@ -146,7 +194,11 @@
 			if (close) {  }
 			if (msg) { msg.appendTo(item); }
 			
-			item.appendTo(panel);
+			if (options.position == "top") {
+				item.insertAfter(panel.find(".top"));
+			} else if (options.position == "bottom") {
+				item.insertBefore(panel.find(".bottom"));
+			}
 			
 			// TODO:
 			_this.out_handle = _this.out_handle || {};
@@ -163,9 +215,9 @@
 
 			_element.stop().animate( { opacity: 0 }, options.speed ).animate( { height: 0 }, options.speed / 2, function() {
 				_element.remove();
-				if (panel.find(".mqueue-item").length === 0) {
+				if (panel.find(".mqueue-item:not(.top, .bottom)").length === 0) {
 					_this._clean_panel(options);
-				}
+                }
 			});
 			delete _this.out_handle[id];
 		},
