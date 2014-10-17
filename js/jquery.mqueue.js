@@ -1,12 +1,12 @@
 /**
  * @charset: UTF-8
  * jquery.mqueue jQuery消息列表
- * version: v1.0.1
+ * version: v1.0.2
  * 
  * copyright © 2014 kbdsbx
  * date: 2014-06-13
  * 
- * url: none;
+ * url: https://github.com/kbdsbx/mqueue;
  */
 
 ;(function($){
